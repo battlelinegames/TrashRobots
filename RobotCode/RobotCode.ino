@@ -7,7 +7,8 @@
 #define MC1_ENA 25
 #define MC1_ENB 26
 
-#define SERVO_1 18
+#define SERVO_ARM 18
+#define SERVO_SMALL 19
 
 /*
 #define MC2_IN1 21
@@ -140,17 +141,17 @@ void processGamepad(ControllerPtr ctl) {
     ctl->setColorLED(255 - bat, bat, 0);
 
     if( ctl->l1() ) {
-        analogWrite(SERVO_1, 250);
+        analogWrite(SERVO_ARM, 250);
     }
     if( ctl->l2()) {
-
+        analogWrite(SERVO_SMALL, 250);
     }
 
     if( ctl->r1()) {
-        analogWrite(SERVO_1, 50);
+        analogWrite(SERVO_ARM, 50);
     }
     if( ctl->r2()) {
-
+        analogWrite(SERVO_SMALL, 50);
     }
 
     if( ctl->throttle() ) { // l2 10 bit analog
@@ -197,7 +198,7 @@ void processGamepad(ControllerPtr ctl) {
         led++;
         ctl->setPlayerLEDs(led & 0x0f);
         */
-        //analogWrite(SERVO_1, 0);
+        //analogWrite(SERVO_ARM, 0);
         Serial.printf("PRESS B\n");
         
 
@@ -206,7 +207,7 @@ void processGamepad(ControllerPtr ctl) {
     if (ctl->x()) { // SQUARE ON PS
         //ctl->playDualRumble(0 /* delayedStartMs */, 250 /* durationMs */, 0x80 /* weakMagnitude */,
         //                  0x40 /* strongMagnitude */);
-        //analogWrite(SERVO_1, 250);
+        //analogWrite(SERVO_ARM, 250);
         Serial.printf("PRESS X\n");
 
     }
@@ -214,7 +215,7 @@ void processGamepad(ControllerPtr ctl) {
     if (ctl->y()) { // TRIANGLE ON PS
         //ctl->playDualRumble(0 /* delayedStartMs */, 250 /* durationMs */, 0x80 /* weakMagnitude */,
         //                  0x40 /* strongMagnitude */);
-        //analogWrite(SERVO_1, 250);
+        //analogWrite(SERVO_ARM, 250);
         Serial.printf("PRESS Y\n");
 
     }
@@ -249,7 +250,7 @@ void setup() {
     BP32.setup(&onConnectedController, &onDisconnectedController);
 
     int motorPins[] = {
-        MC1_IN1, MC1_IN2, MC1_IN3, MC1_IN4, MC1_ENA, MC1_ENB, SERVO_1
+        MC1_IN1, MC1_IN2, MC1_IN3, MC1_IN4, MC1_ENA, MC1_ENB, SERVO_ARM, SERVO_SMALL
 
     };
 
